@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Xác nhận đơn hàng</title>
+</head>
+<body>
+<h1>Tích hợp API giao hàng nhanh</h1>
+<form action="#" th:action="@{/order-api/check-fee}" th:object="${order}" method="post">
+    <h3>Xác nhận đơn hàng test:</h3>
+    <table>
+        <tr>
+            <td>Tỉnh</td>
+            <td>
+                <select th:field="*{to_district_id}">
+                    <option th:each="i : ${districts}" th:value="${i.code}" th:text="${i.name}" th:selected="(${i.code} == 202)">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Địa chỉ</td>
+            <td>
+                <select th:field="*{to_ward_code}">
+                    <option th:each="i : ${wards}" th:value="${i.code}" th:text="${i.name}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Dịch vụ</td>
+            <td>
+                <select th:field="*{service_id}">
+                    <option th:each="i : ${services}" th:value="${i.code}" th:text="${i.name}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Mã khuyến mại:</td>
+            <td><input type="text" th:field="*{coupon}"/></td>
+        </tr>
+    </table>
+    <input type="hidden" th:field="*{height}" value="10">
+    <input type="hidden" th:field="*{length}" value="10">
+    <input type="hidden" th:field="*{weight}" value="10">
+    <input type="hidden" th:field="*{width}" value="10">
+    <input type="hidden" th:field="*{insurance_value}" value="20000">
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+</form>
+</body>
+</html>
