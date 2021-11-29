@@ -25,6 +25,9 @@ public class OrderControllerImpl implements OrderController {
     @Value("${GHN.token}")
     public String ghnToken;
 
+    @Value("${GHN.districtId}")
+    public int ghnDistrictId;
+
     @Autowired
     RestTemplate restTemplate;
 
@@ -32,6 +35,7 @@ public class OrderControllerImpl implements OrderController {
     public BaseResponse<CheckFeeResponse> checkFeeOrder(CheckFeeRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("token", ghnToken);
+        request.setFrom_district_id(ghnDistrictId);
         HttpEntity<Object> entity = new HttpEntity<>(request, headers);
         ResponseEntity<Object> responseEntity = restTemplate.exchange(ghnUrl + "v2/shipping-order/fee", HttpMethod.POST, entity, Object.class);
         return BaseResponse.success(null);

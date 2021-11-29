@@ -12,14 +12,25 @@
         <tr>
             <td>Tỉnh</td>
             <td>
-                <select th:field="*{to_district_id}">
-                    <option th:each="i : ${districts}" th:value="${i.code}" th:text="${i.name}" th:selected="(${i.code} == 202)">
+                <select name="nothing">
+                    <option th:each="i : ${provinces}" th:value="${i.code}" th:text="${i.name}"
+                            th:selected="(${i.code} == 202)">
                     </option>
                 </select>
             </td>
         </tr>
         <tr>
-            <td>Địa chỉ</td>
+            <td>Quận huyện</td>
+            <td>
+                <select th:field="*{to_district_id}">
+                    <option th:each="i : ${districts}" th:value="${i.code}" th:text="${i.name}"
+                            th:selected="(${i.code} == 202)">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Xã, phường, huyện</td>
             <td>
                 <select th:field="*{to_ward_code}">
                     <option th:each="i : ${wards}" th:value="${i.code}" th:text="${i.name}">
@@ -41,11 +52,11 @@
             <td><input type="text" th:field="*{coupon}"/></td>
         </tr>
     </table>
-    <input type="hidden" th:field="*{height}" value="10">
-    <input type="hidden" th:field="*{length}" value="10">
-    <input type="hidden" th:field="*{weight}" value="10">
-    <input type="hidden" th:field="*{width}" value="10">
-    <input type="hidden" th:field="*{insurance_value}" value="20000">
+    <input type="hidden" name="height" value="10" id="height">
+    <input type="hidden" name="length" value="10" id="length">
+    <input type="hidden" name="weight" value="10" id="weight">
+    <input type="hidden" name="width" value="10" id="width">
+    <input type="hidden" name="insurance_value" value="20000">
     <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
 </form>
 </body>

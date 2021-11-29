@@ -40,6 +40,7 @@ public class TestWebController {
 
     @GetMapping("/order")
     public String viewWeb(Model model) {
+        List<DistrictItem> provinceList = new ArrayList<>();
         List<DistrictItem> districtItemList = new ArrayList<>();
         List<ServiceItem> serviceItemList = new ArrayList<>();
         List<WardItem> wardList = new ArrayList<>();
@@ -54,6 +55,22 @@ public class TestWebController {
                 DistrictItem districtItem = new DistrictItem();
                 districtItem.setCode((int) dMap.get("ProvinceID"));
                 districtItem.setName((String) dMap.get("ProvinceName"));
+                provinceList.add(districtItem);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Map serviceRequest = new LinkedHashMap();
+            serviceRequest.put("province_id", 202);
+            entity = new HttpEntity<>(serviceRequest, headers);
+            ResponseEntity responseEntity = restTemplate.exchange(ghnUrl + "master-data/district", HttpMethod.GET, entity, Object.class);
+            Map resp = (Map) responseEntity.getBody();
+            List<Map> dMapData = (List<Map>) resp.get("data");
+            for (Map dMap : dMapData) {
+                DistrictItem districtItem = new DistrictItem();
+                districtItem.setCode((int) dMap.get("DistrictID"));
+                districtItem.setName((String) dMap.get("DistrictName"));
                 districtItemList.add(districtItem);
             }
         } catch (Exception e) {
@@ -95,6 +112,7 @@ public class TestWebController {
             e.printStackTrace();
         }
         districtItemList.add(new DistrictItem(1, "Ho Chi Minh"));
+        model.addAttribute("provinces", provinceList);
         model.addAttribute("districts", districtItemList);
         model.addAttribute("services", serviceItemList);
         model.addAttribute("wards", wardList);
